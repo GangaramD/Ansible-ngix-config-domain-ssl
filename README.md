@@ -25,7 +25,8 @@ Use the Parameterized Jenkins Job.
           
  # Installing nginx and Deploying the nginx configuration for DNS
  Use Jenkins Parameterized Job.
-     Params:
+ 
+  Params:
      1. Host_ip = 231.323.34.434 # Host IP
      2. Host_pwd = password  #Host password
  
