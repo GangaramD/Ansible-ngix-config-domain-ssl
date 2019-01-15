@@ -1,0 +1,25 @@
+---
+- hosts: nginx
+  become: yes
+  vars:
+    dns_name: www.hiteam.com
+    cert_email: ram@gmail.com
+  
+  tasks: 
+  - name: Installing epel
+    yum:
+      name: epel-release
+      state: latest
+
+  
+  - name: Install letsencrypt dependencies
+    yum:
+      name: certbot-nginx
+      state: latest
+      update_cache: yes
+
+  - name: default site SSL certs
+    command: "certbot --installer nginx --authenticator standalone --agree-tos --email {{ cert_email }} certonly -n -d {{ dns_name }} --pre-hook 'service nginx stop' --post-hook 'service nginx start'"
+    args:
+      creates: "/etc/letsencrypt/live/{{ dns_name }}"
+

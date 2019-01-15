@@ -1,0 +1,41 @@
+---
+- hosts: nginx
+  become: yes
+  vars:
+    dns_name: www.hiteam.com
+    cert_email: ram@gmail.com
+    host_file: www.example.com
+  
+  tasks: 
+  - name: Installing epel
+    yum:
+      name: epel-release
+      state: latest
+
+  - name: nginx is present
+    yum:
+      name: nginx
+      state: latest
+    update_cache: yes
+  
+  - name: Copy the deploymnet file
+    copy:
+       src: ./platform_nginx_conf/sites-enabled
+       dest: /etc/nginx/conf.d/
+       force: yes
+       
+  - name: Copy the deploymnet file
+    copy:
+       src: nginx.conf
+       dest: /etc/nginx/
+       force: yes
+    
+  - name: nginx -t to check the conf file syntax
+    command: "nginx -t"
+    notify:
+      - restart nginx
+  
+  handlers:
+
+  - name: restart nginx
+    service: name=nginx state=restarted
