@@ -24,8 +24,8 @@ Use the Parameterized Jenkins Job.
           ansible-playbook -i inventory ssl_certs.yaml --extra-vars "dns_name=$DNS_name cert_email=$Email"
           
  # Installing nginx and Deploying the nginx configuration for DNS
- Use Jenkins Parameterized Job
-   Params:
+ Use Jenkins Parameterized Job.
+     Params:
      1. Host_ip = 231.323.34.434 # Host IP
      2. Host_pwd = password  #Host password
  
